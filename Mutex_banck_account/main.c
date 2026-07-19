@@ -47,10 +47,15 @@ void Widraw(void * pvParameter)
 int main()
 {
 	mutex = xSemaphoreCreateMutex();
-
-	xTaskCreate(Deposite, "diposite", 512, NULL, 2, NULL);
-	xTaskCreate(Widraw, "Widraw", 512, NULL, 2, NULL);
-	xTaskCreate(CheckBalance, "Balance", 512, NULL, 2, NULL);
+	if(mutex != NULL)
+	{
+		xTaskCreate(Deposite, "diposite", 512, NULL, 2, NULL);
+		xTaskCreate(Widraw, "Widraw", 512, NULL, 2, NULL);
+		xTaskCreate(CheckBalance, "Balance", 512, NULL, 2, NULL);
+	}
+	else{
+		printf("Mutex creation is failed !!!");
+	}
 	vTaskStartScheduler();
 	for (;;);
 }
